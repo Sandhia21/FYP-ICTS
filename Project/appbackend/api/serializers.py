@@ -1,10 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, Course, Enrollment
-
-class CustomUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ['id', 'username', 'email', 'role', 'profile_picture']
+from .models import Course, Enrollment
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,4 +9,4 @@ class CourseSerializer(serializers.ModelSerializer):
 class EnrollmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Enrollment
-        fields = ['id', 'student','course']
+        fields = ['id', 'student', 'course']
