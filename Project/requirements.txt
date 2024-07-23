@@ -2,3 +2,5 @@ django
 djangorestframework
 requests
 Pillow
+djangorestframework-simplejwt
+openai

@@ -10,19 +10,31 @@ def test_create_enrollment():
     }
     response = requests.post(endpoint, data=data)
     print(f"Create Enrollment Status Code: {response.status_code}")
-    print(response.json())
+    try:
+        print(response.json())
+    except requests.exceptions.JSONDecodeError:
+        print("Response content is not in JSON format")
+        print(response.text)
 
 def test_get_enrollments():
     endpoint = f"{BASE_URL}enrollments/"
     response = requests.get(endpoint)
     print(f"Get Enrollments Status Code: {response.status_code}")
-    print(response.json())
+    try:
+        print(response.json())
+    except requests.exceptions.JSONDecodeError:
+        print("Response content is not in JSON format")
+        print(response.text)
 
 def test_get_enrollment(enrollment_id):
     endpoint = f"{BASE_URL}enrollments/{enrollment_id}/"
     response = requests.get(endpoint)
     print(f"Get Enrollment Status Code: {response.status_code}")
-    print(response.json())
+    try:
+        print(response.json())
+    except requests.exceptions.JSONDecodeError:
+        print("Response content is not in JSON format")
+        print(response.text)
 
 def test_update_enrollment(enrollment_id):
     endpoint = f"{BASE_URL}enrollments/{enrollment_id}/"
@@ -31,13 +43,16 @@ def test_update_enrollment(enrollment_id):
     }
     response = requests.put(endpoint, data=data)
     print(f"Update Enrollment Status Code: {response.status_code}")
-    print(response.json())
+    try:
+        print(response.json())
+    except requests.exceptions.JSONDecodeError:
+        print("Response content is not in JSON format")
+        print(response.text)
 
 def test_delete_enrollment(enrollment_id):
     endpoint = f"{BASE_URL}enrollments/{enrollment_id}/"
     response = requests.delete(endpoint)
     print(f"Delete Enrollment Status Code: {response.status_code}")
-    print(response.status_code)
 
 if __name__ == "__main__":
     test_create_enrollment()
