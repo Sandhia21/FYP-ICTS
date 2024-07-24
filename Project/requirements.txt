@@ -4,3 +4,5 @@ requests
 Pillow
 djangorestframework-simplejwt
 openai
+g4f[all]
+curl_cffi
