@@ -1,20 +1,31 @@
 import requests
 
-BASE_URL = "http://127.0.0.1:8000/users/"
+BASE_URL = "http://127.0.0.1:8000"
 
-def test_login():
-    endpoint = f"{BASE_URL}login/"
+def register(username, email, password, role):
+    endpoint = f"{BASE_URL}/users/register/"
     data = {
-        "username": "uniqueuser123",
-        "password": "password123"
+        "username": username,
+        "email": email,
+        "password": password,
+        "role": role
+    }
+    response = requests.post(endpoint, data=data)
+    print(f"Registration Status Code: {response.status_code}")
+    print(response.json())
+    return response
+
+def login(username, password):
+    endpoint = f"{BASE_URL}/users/login/"
+    data = {
+        "username": username,
+        "password": password
     }
     response = requests.post(endpoint, data=data)
     print(f"Login Status Code: {response.status_code}")
-    try:
-        print(response.json())
-    except requests.exceptions.JSONDecodeError:
-        print("Response content is not in JSON format")
-        print(response.text)
+    print(response.json())
+    result = response.json()
+    return result.get('token', None)
 
-if __name__ == "__main__":
-    test_login()
+teacher_token = login("teacher_username", "teacher_password")
+student_token = login("student_username", "student_password")

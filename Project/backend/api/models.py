@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import CustomUser
 import uuid
+from django.conf import settings
 
 class Course(models.Model):
     name = models.CharField(max_length=100)
@@ -13,9 +14,13 @@ class Course(models.Model):
     students = models.ManyToManyField(CustomUser, through='Enrollment', related_name='enrolled_courses', blank=True)
     course_key = models.CharField(max_length=20, unique=True, default=uuid.uuid4)
 
+
+
+
+
 class Enrollment(models.Model):
-    student = models.ForeignKey(CustomUser, related_name='enrollments', on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, related_name='enrollments', on_delete=models.CASCADE)
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='api_enrollments')
+    course = models.ForeignKey('Course', on_delete=models.CASCADE, related_name='api_enrollments')
     date_enrolled = models.DateTimeField(auto_now_add=True)
 
 class TableOfContent(models.Model):
